@@ -59,3 +59,6 @@ SHARED RESOURCES 3 lines, teller to resource, thread using resource, thread done
 Thoughts:
 I know I need shared variables. Im probably doing this in C once more since that's what I did it in previously in a different class. I don't think this will be too
 difficult, but I know in the past I've definitely ran into timing issues with threads so we will see.
+
+- @12:48
+  did the bare outline for my main program. might be all i do for this session atm
