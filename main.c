@@ -25,5 +25,12 @@ int main() {
   sem_init(&safe, 0, 2);
   sem_init(&manager, 0, 1);
 
+
+  //gonna make a loop so that each customer/teller interaction has 3 threads
+  for (int i = 0; i < NUM_CUST; i++) {
+    sem_init(&call_cust[i], 0, 0);
+    sem_init(&resource_use[i], 0, 0);
+    sem_init(tran_done[i], 0, 0);
+  }
   return 0;
 }
