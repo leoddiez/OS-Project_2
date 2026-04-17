@@ -78,3 +78,12 @@ difficult, but I know in the past I've definitely ran into timing issues with th
 
 - @21:23
   finished customer void function, and made other fucntions that are necessary to assist inside it (enqueue, dequeue, wait timer), added the sem_t's at the top (i forgot earlier), fixed the #define (i wrote it like as if i was writing a const and not a #define), and added the mutex to lock the queue.
+
+# Session 4 April 17th, 2026 05:38
+> Good morning devlog, gonna grind out the rest of this in one sitting, which should just be the teller void function and that's it. I forgot to add the sem_t for the joint calls (teller to cust) so imma do that right now, but that should be it. Teller imlementation is similar to cust, but with one if statement (if they withdraw maybe), but that's about the main difference.
+
+- @06:32
+  finished a decent amount of teller and made the if condition for withdraw
+
+- @07:31
+  took a little break but going to finish up right now and try running it. im sure i will run into issues (finished at 07:39)
