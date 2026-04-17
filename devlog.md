@@ -62,3 +62,10 @@ difficult, but I know in the past I've definitely ran into timing issues with th
 
 - @12:48
   did the bare outline for my main program. might be all i do for this session atm
+
+# Session 2: April 16th, 2026 13:05
+> Going to work on the main program before I do the void functions. I think I'll work on the customer interaction first since that seems easier (less going on on that end)
+- @13:34
+  Commited semaphores and pthreads to main() in main.c
+- @14:13
+  Added loop so that each customer/teller interaction has 3 threads
