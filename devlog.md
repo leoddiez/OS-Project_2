@@ -69,3 +69,12 @@ difficult, but I know in the past I've definitely ran into timing issues with th
   Commited semaphores and pthreads to main() in main.c
 - @14:13
   Added loop so that each customer/teller interaction has 3 threads
+
+# Session 3 April 16th, 2026 20:00
+> I'm going to try and grind out the rest of this in one sitting. I'm going to finish typing the rest of main, and then going to work on creating the void for the customers next. I know I will need a queue for the customers to wait in, adn will probably need a pointer for the head and the tail (head for next cust, tail for as they come in?) and the rest is just operating the threads.
+
+- @20:15
+  finished typing main section. created tellers and customers, joined them and closed bank (main.c), also made the closeing loops inline because it looks nicer
+
+- @21:23
+  finished customer void function, and made other fucntions that are necessary to assist inside it (enqueue, dequeue, wait timer), added the sem_t's at the top (i forgot earlier), fixed the #define (i wrote it like as if i was writing a const and not a #define), and added the mutex to lock the queue.
