@@ -64,13 +64,13 @@ int main() {
   for(int i = 0; i < MAX_TELL; i++) {
     int* id = malloc(sizeof(int));
     *id = i;
-    pthread_create(&teller[i], NULL, teller, id);
+    pthread_create(&teller[i], NULL, tellers, id);
   }
 
   for(int i = 0; i < MAX_CUST; i++) {
     int* id = malloc(sizeof(int));
     *id = i;
-    pthread_create(&customer[i], NULL, customer, id);
+    pthread_create(&customer[i], NULL, customers, id);
   }
 
   // wait for everyone to finish they business or wtv
@@ -85,7 +85,7 @@ int main() {
   return 0;
 }
 
-void* customer(void* arg) {
+void *customers(void *arg) {
   int id = *(int*)arg; // i had to look this up bc it didnt look right lol
   free(arg);
 
@@ -120,7 +120,7 @@ void* customer(void* arg) {
 
   }
 
-  void* teller(void* arg) {
+  void *tellers(void *arg) {
     int id = *(int*)arg; // i had to look this up bc it didnt look right lol
     free(arg);
 
@@ -139,7 +139,7 @@ void* customer(void* arg) {
       int c_ID = dequeue();             // Get customer ID by dequeuing
       pthread_mutex_unlock(&q_lock);    // Unlock queue (required)
 
-      printf("Teller %d [Customer %d]: NEXT IN LINE\n", id);
+      printf("Teller %d [Customer %d]: NEXT IN LINE\n", id, c_ID);
       sem_post(&call_cust[c_ID]);
       
       printf("Teller %d [Customer %d]: whatchu want sweethawt?\n", id, c_ID);
