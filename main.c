@@ -36,6 +36,9 @@ void enqueue(int id) {queue[tail++] = id;}
 
 int dequeue() {return queue[head++];}
 
+void *tellers(void *arg);
+void *customers(void *arg);
+
 int main() {
   srand(time(NULL));
 
@@ -120,7 +123,7 @@ void *customers(void *arg) {
 
   }
 
-  void *tellers(void *arg) {
+void *tellers(void *arg) {
     int id = *(int*)arg; // i had to look this up bc it didnt look right lol
     free(arg);
 
