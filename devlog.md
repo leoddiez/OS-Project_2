@@ -1,4 +1,4 @@
-# Session 1: April 4th, 2026 11:27
+# Session 1: April 14th, 2026 11:27
 General description of the program:
 - 3 tellers, bank opens when they are all ready
 - Customer no entry before it's open
