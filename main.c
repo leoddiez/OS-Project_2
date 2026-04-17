@@ -27,10 +27,32 @@ int main() {
 
 
   //gonna make a loop so that each customer/teller interaction has 3 threads
-  for (int i = 0; i < NUM_CUST; i++) {
+  for (int i = 0; i < MAX_CUST; i++) {
     sem_init(&call_cust[i], 0, 0);
     sem_init(&resource_use[i], 0, 0);
     sem_init(tran_done[i], 0, 0);
   }
+
+  for(int i = 0; i < MAX_TELL; i++) {
+    int* id = malloc(sizeof(int));
+    *id = i;
+    pthread_create(&teller[i], NULL, tellee, id)
+  }
+
+  for(int i = 0; i < MAX_CUST; i++) {
+    int* id = malloc(sizeof(int));
+    *id = i;
+    pthread_create(&customer[i], NULL, custee, id)
+  }
+
+  // wait for everyone to finish they business or wtv
+  for(int i = 0; i < MAX_CUST; i++) {pthread_join(customer[i], NULL);}
+
+  for(int i = 0; i < MAX_TELL; i++) {sem_post(&c_waiting);}
+
+  for(int i = 0; i < MAX_TELL; i++) {pthread_join(teller[i], NULL);}
+
+  printf("The BANK...IS CLOSED. GO. HOME.\n")
+
   return 0;
 }
