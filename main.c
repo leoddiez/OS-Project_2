@@ -5,8 +5,33 @@
 #include <unistd.h>
 #include <semaphore.h>
 
-#define int MAX_CUST = 50;
-#define int MAX_TELL = 3;
+#define MAX_CUST 50
+#define MAX_TELL 3
+
+//Sems
+sem_t b_Open;
+sem_t doors;
+sem_t c_waiting;
+sem_t teller_ready;
+sem_t safe;
+sem_t manager;
+
+//mutex
+pthread_mutex_t queue_lock;
+
+//cus queue
+int queue[MAX_CUST];
+int head = 0, tail = 0;
+int cust_count = 0;
+
+void rand_wait(int min, int max) {
+  int i = (rand() % (max - min + 1)) + min;
+  usleep(i * 1000); // usleep is in microseconds so need to convert
+}
+
+void enqueue(int id) {queue[tail++] = id;}
+
+int dequeue() {return queue[head++];}
 
 int main() {
   srand(time(NULL));
@@ -56,3 +81,38 @@ int main() {
 
   return 0;
 }
+
+void* customer(void* arg) {
+  int id = *(int*)arg; // i had to look this up bc it didnt look right lol
+  free(arg);
+
+  int trans = rand() % 2;
+  printf("Customer %d [Customer %d]: created\n", id, id);
+  rand_wait(0, 100);
+  sem_wait(&b_Open);
+
+  // BANK IS OPEN BABYYYYYY
+  sem_wait(&doors);
+  printf("Customer %d [Customer %d]: YO YO WHAT UP\n, id, id");
+  sem_post(&doors);
+
+  // GET IN LINE YA FILTHY ANIMAL
+  pthread_mutex_lock(&queue_lock);
+  enqueue(id);
+  pthread_mutex_unlock(&queue_lock);
+  sem_post(&c_waiting);
+
+  sem_wait(&call_cust[id]);
+  printf("Customer %d [Teller ?]: i want THAT teller\n, id");
+  printf("Customer %d [Teller ?]: yo wsg, whatchu want?\n, id");
+  sem_wait(&resource_use[id]);
+  sem_wait(&tran_done[id]);
+  printf("Customer %d [Teller ?]: eehhh GET OUT OF MY LINE bud.\n, id");
+
+  sem_wait(&doors);
+  printf("Customer %d [Customer %d]: ight im LEAVING\n, id, id");
+  sem_post(&door);
+
+  return NULL;
+
+  }
