@@ -58,19 +58,19 @@ int main() {
   for (int i = 0; i < MAX_CUST; i++) {
     sem_init(&call_cust[i], 0, 0);
     sem_init(&resource_use[i], 0, 0);
-    sem_init(tran_done[i], 0, 0);
+    sem_init(&tran_done[i], 0, 0);
   }
 
   for(int i = 0; i < MAX_TELL; i++) {
     int* id = malloc(sizeof(int));
     *id = i;
-    pthread_create(&teller[i], NULL, tellee, id)
+    pthread_create(&teller[i], NULL, teller, id);
   }
 
   for(int i = 0; i < MAX_CUST; i++) {
     int* id = malloc(sizeof(int));
     *id = i;
-    pthread_create(&customer[i], NULL, custee, id)
+    pthread_create(&customer[i], NULL, customer, id);
   }
 
   // wait for everyone to finish they business or wtv
@@ -80,7 +80,7 @@ int main() {
 
   for(int i = 0; i < MAX_TELL; i++) {pthread_join(teller[i], NULL);}
 
-  printf("The BANK...IS CLOSED. GO. HOME.\n")
+  printf("The BANK...IS CLOSED. GO. HOME.\n");
 
   return 0;
 }
@@ -114,7 +114,7 @@ void* customer(void* arg) {
 
   sem_wait(&doors);
   printf("Customer %d [Customer %d]: ight im LEAVING\n, id, id");
-  sem_post(&door);
+  sem_post(&doors);
 
   return NULL;
 
@@ -125,7 +125,7 @@ void* customer(void* arg) {
     free(arg);
 
     // BANK IS OPEN BABYYYYYY
-    printf("Teller %d [Teller %d]: ready freddy!\n, id, id")
+    printf("Teller %d [Teller %d]: ready freddy!\n, id, id");
     sem_post(&b_Open);
 
     // Gotta wait for customers and call them up in this section. While the loop is true, we serve (diva)
@@ -159,7 +159,7 @@ void* customer(void* arg) {
 
       printf("Teller %d [Customer %d]: lemme go in the safe\n, id, c_ID");
       sem_wait(&safe);
-      printf("Teller %d [Customer %d]: in the safe\n, id, c_ID")
+      printf("Teller %d [Customer %d]: in the safe\n, id, c_ID");
       rand_wait(10, 50);
       printf("Teller %d [Customer %d]: safely exiting safe\n, id, c_ID");
       sem_post(&safe);
@@ -172,7 +172,7 @@ void* customer(void* arg) {
 
     }
 
-    printf("Teller %d [Teller %d]: bye bye SUCKERS\n, id, id")
+    printf("Teller %d [Teller %d]: bye bye SUCKERS\n, id, id");
 
     return NULL;
   }
