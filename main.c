@@ -96,7 +96,7 @@ void* customer(void* arg) {
 
   // BANK IS OPEN BABYYYYYY
   sem_wait(&doors);
-  printf("Customer %d [Customer %d]: YO YO WHAT UP\n, id, id");
+  printf("Customer %d [Customer %d]: YO YO WHAT UP\n", id, id);
   sem_post(&doors);
 
   // GET IN LINE YA FILTHY ANIMAL
@@ -106,14 +106,14 @@ void* customer(void* arg) {
   sem_post(&c_waiting);
 
   sem_wait(&call_cust[id]);
-  printf("Customer %d [Teller ?]: i want THAT teller\n, id");
-  printf("Customer %d [Teller ?]: yo wsg, whatchu want?\n, id");
+  printf("Customer %d [Teller ?]: i want THAT teller\n", id);
+  printf("Customer %d [Teller ?]: yo wsg, whatchu want?\n", id);
   sem_wait(&resource_use[id]);
   sem_wait(&tran_done[id]);
-  printf("Customer %d [Teller ?]: eehhh GET OUT OF MY LINE bud.\n, id");
+  printf("Customer %d [Teller ?]: eehhh GET OUT OF MY LINE bud.\n", id);
 
   sem_wait(&doors);
-  printf("Customer %d [Customer %d]: ight im LEAVING\n, id, id");
+  printf("Customer %d [Customer %d]: ight im LEAVING\n", id, id);
   sem_post(&doors);
 
   return NULL;
@@ -125,7 +125,7 @@ void* customer(void* arg) {
     free(arg);
 
     // BANK IS OPEN BABYYYYYY
-    printf("Teller %d [Teller %d]: ready freddy!\n, id, id");
+    printf("Teller %d [Teller %d]: ready freddy!\n", id, id);
     sem_post(&b_Open);
 
     // Gotta wait for customers and call them up in this section. While the loop is true, we serve (diva)
@@ -139,31 +139,31 @@ void* customer(void* arg) {
       int c_ID = dequeue();             // Get customer ID by dequeuing
       pthread_mutex_unlock(&q_lock);    // Unlock queue (required)
 
-      printf("Teller %d [Customer %d]: NEXT IN LINE\n, id");
+      printf("Teller %d [Customer %d]: NEXT IN LINE\n", id);
       sem_post(&call_cust[c_ID]);
       
-      printf("Teller %d [Customer %d]: whatchu want sweethawt?\n, id, c_ID");
+      printf("Teller %d [Customer %d]: whatchu want sweethawt?\n", id, c_ID);
       sem_post(&resource_use[c_ID]);
       sem_wait(&resource_use[c_ID]);
 
       int withdraw = rand() % 2;    // Customer either withdrawing or depositing
 
       if (withdraw) {
-        printf("Teller %d [Customer %d]: lemme get my manager\n, id, c_ID");
+        printf("Teller %d [Customer %d]: lemme get my manager\n", id, c_ID);
         sem_wait(&manager);
-        printf("Teller %d [Customer %d]: talking with manager\n, id, c_ID");
+        printf("Teller %d [Customer %d]: talking with manager\n", id, c_ID);
         rand_wait(5, 30);
-        printf("Teller %d [Customer %d]: ok done with the big man(ager)\n, id, c_ID");
+        printf("Teller %d [Customer %d]: ok done with the big man(ager)\n", id, c_ID);
         sem_post(&manager);
       }
 
-      printf("Teller %d [Customer %d]: lemme go in the safe\n, id, c_ID");
+      printf("Teller %d [Customer %d]: lemme go in the safe\n", id, c_ID);
       sem_wait(&safe);
-      printf("Teller %d [Customer %d]: in the safe\n, id, c_ID");
+      printf("Teller %d [Customer %d]: in the safe\n", id, c_ID);
       rand_wait(10, 50);
-      printf("Teller %d [Customer %d]: safely exiting safe\n, id, c_ID");
+      printf("Teller %d [Customer %d]: safely exiting safe\n", id, c_ID);
       sem_post(&safe);
-      printf("Teller %d [Customer %d]: here's yo money...yo\n, id, c_ID");
+      printf("Teller %d [Customer %d]: here's yo money...yo\n", id, c_ID);
       sem_post(&tran_done[c_ID]);
 
       pthread_mutex_lock(&q_lock);
@@ -172,7 +172,7 @@ void* customer(void* arg) {
 
     }
 
-    printf("Teller %d [Teller %d]: bye bye SUCKERS\n, id, id");
+    printf("Teller %d [Teller %d]: bye bye SUCKERS\n", id, id);
 
     return NULL;
   }
