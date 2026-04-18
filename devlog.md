@@ -98,4 +98,5 @@ difficult, but I know in the past I've definitely ran into timing issues with th
 # Session 5 April 17th, 2026 20:44
 > I took a break from earlier, but earlier I did a lot of debugging that i didnt commit because it still wasnt right. I went through a LOT of trial and error but all is well now. I added a couple of new semaphores to help with keeping things in line and together (sync), and had to go back and forth between teller and customer a lot to figure out where my waits and posts werent lining up. Right now im only running it on 3 and it works, so im going to crank up the number and hope the program still works.
 
-- just tested it with 5, 10 and then the full 50, and they seem to be all working, so i *think* i am now done!
+- @21:56
+  just tested it with 5, 10 and then the full 50, and they seem to be all working, so i *think* i am now done!
