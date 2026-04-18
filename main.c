@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <semaphore.h>
 
-#define MAX_CUST 3
+#define MAX_CUST 50
 #define MAX_TELL 3
 
 //Sems
@@ -176,7 +176,6 @@ void *tellers(void *arg) {
       which_teller[c_ID] = id;
       sem_post(&tell_assign[c_ID]);
 
-      //printf("Teller %d []: waiting for customer\n", id);
       sem_post(&call_cust[c_ID]);
       sem_wait(&cust_ready[c_ID]);
       
